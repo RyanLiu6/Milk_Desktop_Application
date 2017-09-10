@@ -18,6 +18,7 @@ int main()
                        "universe. Discover which of these new Guardians you're most aligned with by taking the quiz.");
 
     MainUI.printString("Press press the Space Key to Begin, and 0 to quit at any time.");
+    MainUI.printString("Note: Please only enter a single character at any selection page.");
 
     std::cin.get(userInputChar);
 
@@ -38,15 +39,20 @@ int main()
 
         for (int i = 0; i < NUM_ANSWERS; i++)
         {
-            MainUI.printString(MainUI.getAnswer(questionCount, i));
-            numOfAnswers++;
+            std::string temp = MainUI.getAnswer(questionCount, i);
+            MainUI.printString(temp);
+
+            if (!temp.empty())
+            {
+                numOfAnswers++;
+            }
         }
 
         std::cin.ignore();
         std::cin.get(userInputChar);
         userInputInt = userInputChar - '0';
 
-        while (userInputInt < 1 || userInputInt > numOfAnswers)
+        while (userInputInt > numOfAnswers)
         {
             MainUI.printString("Please enter a valid answer");
             std::cin.ignore();
@@ -62,6 +68,8 @@ int main()
         MainUI.printHeader();
     }
     MainUI.printResult();
+
+    system("PAUSE");
 
     return 0;
 }
